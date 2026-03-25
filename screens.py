@@ -122,9 +122,9 @@ class MenuScreen(Screen):
         super().__init__(screen)
 
         self.menu_items = [
-            {"text":"Play", "x": 200, "y": 250, "action":"game"},
-            {"text":"Settings", "x": 400, "y": 320, "action":"settings"},
-            {"text":"Exit", "x": 600, "y": 390, "action":"quit"}
+            {"text":"Play", "y": 250, "action":"game"},
+            {"text":"Settings", "y": 320, "action":"settings"},
+            {"text":"Exit", "y": 390, "action":"quit"}
         ]
 
         self.button_rects = []
