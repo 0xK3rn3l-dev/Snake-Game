@@ -1,5 +1,5 @@
 import pygame
-from windows import CreateWindow
+from window import CreateWindow
 from core import RunningProgram  
 
 def main():

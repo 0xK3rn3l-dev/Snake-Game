@@ -1,7 +1,7 @@
 import pygame
 
 
-class Screen:
+class BaseScreen:
     def __init__(self, screen):
         
         #Main
@@ -119,7 +119,7 @@ class Screen:
         pass
 
 
-class MenuScreen(Screen):
+class MenuScreen(BaseScreen):
     def __init__(self, screen):
         super().__init__(screen)
 
@@ -138,12 +138,12 @@ class MenuScreen(Screen):
         
         self._create_button_rects()
 
-        self._load_audio()
+        #self._load_audio()
 
-    def _load_audio(self):
+    #def _load_audio(self):
         # Фоновый звук
-        self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
-        self.play_background_sound()
+        #self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
+        #self.play_background_sound()
         
         # Звуковые эффекты
         #self.load_sound("hover", "sounds/effects/hover.wav", volume=0.3)
@@ -215,10 +215,10 @@ class MenuScreen(Screen):
             self.screen.blit(text, text_rect)
 
 
-class GameScreen(Screen):
+class GameScreen(BaseScreen):
     def __init__(self,screen):
         super().__init__(screen)
 
-class SettingsScreen(Screen):
+class SettingsScreen(BaseScreen):
     def __init__(self, screen):
         super().__init__(screen)
