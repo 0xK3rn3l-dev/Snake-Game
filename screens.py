@@ -3,6 +3,8 @@ import pygame
 
 class Screen:
     def __init__(self, screen):
+        
+        #Main
         self.screen = screen
         self.running = False
         self.next_screen = None
@@ -23,6 +25,7 @@ class Screen:
         self.font_large = pygame.font.Font(None, 48)
         self.font_title = pygame.font.Font(None, 72)
 
+        #Sounds
         self.sounds = {}
         self.background_sound = None
         self.background_sound_volume = 0.5
@@ -90,7 +93,6 @@ class Screen:
     def set_sound_volume(self, name=None, volume=None):
         if volume is not None:
             self.effects_sound_volume = max(0.0, min(1.0, volume))
-
         if name:
             if name in self.sounds:
                 vol = volume if volume is not None else self.effects_sound_volume
@@ -121,26 +123,34 @@ class MenuScreen(Screen):
     def __init__(self, screen):
         super().__init__(screen)
 
+        '''format: text, x, y, action'''
         self.menu_items = [
-            {"text":"Play", "y": 250, "action":"game"},
+            {"text":"Play",     "y": 250, "action":"game"},
             {"text":"Settings", "y": 320, "action":"settings"},
-            {"text":"Exit", "y": 390, "action":"quit"}
+            {"text":"Exit",     "y": 390, "action":"quit"}
         ]
 
         self.button_rects = []
 
-        self._create_button_rects()
-        #self._load_audio()
 
-    #def _load_audio(self):
-        """Загружает все звуки для меню"""
+        self.background_image = None
+        self._load_background()
+        
+        self._create_button_rects()
+
+        self._load_audio()
+
+    def _load_audio(self):
         # Фоновый звук
-        #self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
-        #self.play_background_sound()
+        self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
+        self.play_background_sound()
         
         # Звуковые эффекты
         #self.load_sound("hover", "sounds/effects/hover.wav", volume=0.3)
         #self.load_sound("click", "sounds/effects/click.wav", volume=0.5)
+
+    def _load_background(self):
+        self.background_image = pygame.image.load("images/background/backgroundMenu.png")  
 
 
     def _create_button_rects(self):
@@ -148,11 +158,8 @@ class MenuScreen(Screen):
 
         for item in self.menu_items:
             text_surface = self.font_medium.render(item["text"], True, self.WHITE)
-
             x = item.get("x", self.screen.get_width() // 2)
             rect = text_surface.get_rect(center=(x, item["y"]))
-
-            #rect = text_surface.get_rect(center=(self.screen.get_width() // 2, item["y"]))
             self.button_rects.append(rect)
 
 
@@ -160,7 +167,6 @@ class MenuScreen(Screen):
         mouse_pos = pygame.mouse.get_pos()
 
         for event in events:
-
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     for i,rect in enumerate(self.button_rects):
@@ -172,20 +178,21 @@ class MenuScreen(Screen):
     def update(self):
         if len(self.button_rects) != len(self.menu_items):
             self._create_button_rects()
-
         else:
             for i,rect in enumerate(self.button_rects):
                 x = self.menu_items[i].get("x", self.screen.get_width() // 2)
                 y = self.menu_items[i]["y"]
                 expected_center = (x, y)
-                #expected_center = (self.screen.get_width() // 2, self.menu_items[i]["y"])
 
                 if rect.center != expected_center:
                     self._create_button_rects()
                     break
 
     def draw(self):
-        self.screen.fill(self.BLACK)
+        if self.background_image:
+            self.screen.blit(self.background_image, (0, 0))
+        else:
+            self.screen.fill(self.BLACK)
 
         title = self.font_title.render("SNAKE GAME", True, self.YELLOW)
         title_rect = title.get_rect(center=(self.screen.get_width() // 2, 100))
@@ -199,7 +206,6 @@ class MenuScreen(Screen):
             if is_hovered:
                 color = self.YELLOW
                 font = self.font_large
-
             else:
                 color = self.WHITE
                 font = self.font_medium
