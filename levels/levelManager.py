@@ -1,6 +1,6 @@
-from level_00 import Level_00
-from level_01 import Level_01
-from level_02 import Level_02
+from levels.level_00 import Level_00
+from levels.level_01 import Level_01
+from levels.level_02 import Level_02
 
 class LevelManager:
     LEVELS = {
