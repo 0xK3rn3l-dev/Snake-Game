@@ -1,11 +1,14 @@
 import pygame
-from screens import MenuScreen
+from screens.MenuScreen import MenuScreen
+from screens.SettingScreen import SettingScreen
+from screens.GameScreen import GameScreen
 
 def RunningProgram(MainScreen):
 
     screens = {
-        "menu": MenuScreen(MainScreen)
-        
+        "menu": MenuScreen(MainScreen),
+        "game": GameScreen(MainScreen),
+        "settings": SettingScreen(MainScreen)
     }
 
     current_screen = "menu"
