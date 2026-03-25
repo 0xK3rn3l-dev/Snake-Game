@@ -122,8 +122,9 @@ class MenuScreen(Screen):
         super().__init__(screen)
 
         self.menu_items = [
-            {"text":"Играть", "y": 250, "action":"game"},
-            {"text":"Выход", "y": 320, "action":"quit"}
+            {"text":"Play", "x": 200, "y": 250, "action":"game"},
+            {"text":"Settings", "x": 400, "y": 320, "action":"settings"},
+            {"text":"Exit", "x": 600, "y": 390, "action":"quit"}
         ]
 
         self.button_rects = []
@@ -147,7 +148,11 @@ class MenuScreen(Screen):
 
         for item in self.menu_items:
             text_surface = self.font_medium.render(item["text"], True, self.WHITE)
-            rect = text_surface.get_rect(center=(self.screen.get_width() // 2, item["y"]))
+
+            x = item.get("x", self.screen.get_width() // 2)
+            rect = text_surface.get_rect(center=(x, item["y"]))
+
+            #rect = text_surface.get_rect(center=(self.screen.get_width() // 2, item["y"]))
             self.button_rects.append(rect)
 
 
@@ -170,7 +175,11 @@ class MenuScreen(Screen):
 
         else:
             for i,rect in enumerate(self.button_rects):
-                expected_center = (self.screen.get_width() // 2, self.menu_items[i]["y"])
+                x = self.menu_items[i].get("x", self.screen.get_width() // 2)
+                y = self.menu_items[i]["y"]
+                expected_center = (x, y)
+                #expected_center = (self.screen.get_width() // 2, self.menu_items[i]["y"])
+
                 if rect.center != expected_center:
                     self._create_button_rects()
                     break
@@ -199,8 +208,11 @@ class MenuScreen(Screen):
             text_rect = text.get_rect(center=self.button_rects[i].center)
             self.screen.blit(text, text_rect)
 
-"""
+
 class GameScreen(Screen):
     def __init__(self,screen):
         super().__init__(screen)
-"""
+
+class SettingsScreen(Screen):
+    def __init__(self, screen):
+        super().__init__(screen)
