@@ -3,7 +3,6 @@ class Level_01:
         self.name = "Desert"
         self.speed = 7
         self.snake_start = [(400, 300)]
-        self.foods = [(300, 200), (500, 400), (200, 500), (600, 100)]
         self.walls = [
             (0, 0, 800, 20),      # верхняя стена
             (0, 580, 800, 20),    # нижняя стена

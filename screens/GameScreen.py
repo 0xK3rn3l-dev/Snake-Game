@@ -2,7 +2,7 @@ from screens.BaseScreen import BaseScreen
 from levels.levelManager import LevelManager
 import pygame
 
-# 111
+
 class GameScreen(BaseScreen):
     def __init__(self,screen):
         super().__init__(screen)
@@ -12,7 +12,7 @@ class GameScreen(BaseScreen):
 
         # Игровые объекты (из уровня)
         self.snake = None
-        self.foods = []
+        #self.foods = []
         self.walls = []
         
         # Состояние игры
@@ -25,7 +25,7 @@ class GameScreen(BaseScreen):
         """Загружает объекты из текущего уровня"""
         if self.current_level:
             self.coordinate_start_snake = self.current_level.snake_start
-            self.foods = self.current_level.foods.copy()
+            #self.foods = self.current_level.foods.copy()
             self.walls = self.current_level.walls
             self.speed = self.current_level.speed
 
@@ -52,6 +52,12 @@ class GameScreen(BaseScreen):
         if self.game_over:
             return
 
+
+
+    # =======================
+    #          UI
+    #========================
+
     def draw_ui(self):
         """Отрисовка интерфейса"""
         # Счет
@@ -66,6 +72,8 @@ class GameScreen(BaseScreen):
         speed_text = self.font_small.render(f"Speed: {self.speed}", True, self.GRAY)
         self.screen.blit(speed_text, (20, 90))
     
+
+
     def draw(self):
         # Фон уровня
         if self.current_level:
@@ -78,8 +86,8 @@ class GameScreen(BaseScreen):
             pygame.draw.rect(self.screen, self.GRAY, wall)
         
         # Еда
-        for food in self.foods:
-            pygame.draw.circle(self.screen, self.RED, food, 50)
+        #for food in self.foods:
+        #    pygame.draw.circle(self.screen, self.RED, food, 10)
         
         # Змейка
         if self.snake:
@@ -89,6 +97,7 @@ class GameScreen(BaseScreen):
         # Интерфейс
         self.draw_ui()
         
+        #Game over
         if self.game_over:
             game_over_text = self.font_title.render("GAME OVER", True, self.RED)
             text_rect = game_over_text.get_rect(center=(self.screen.get_width() // 2, self.screen.get_height() // 2))
