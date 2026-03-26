@@ -20,12 +20,12 @@ class MenuScreen(BaseScreen):
         
         self._create_button_rects()
 
-        #self._load_audio()
+        self._load_audio()
 
-    #def _load_audio(self):
+    def _load_audio(self):
         # Фоновый звук
-        #self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
-        #self.play_background_sound()
+        self.load_background_sound("sounds/backgrounds/menu.mp3", volume=0.5)
+        self.play_background_sound()
         
         # Звуковые эффекты
         #self.load_sound("hover", "sounds/effects/hover.wav", volume=0.3)
