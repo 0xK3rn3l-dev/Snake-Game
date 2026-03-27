@@ -74,6 +74,7 @@ class GameScreen(BaseScreen):
             # Проверяем, не на стене ли
             food_rect = pygame.Rect(x * self.cell_size, y * self.cell_size, 
                                    self.cell_size, self.cell_size)
+            
             for wall in self.walls:
                 if food_rect.colliderect(wall):
                     collision = True

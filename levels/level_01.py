@@ -4,7 +4,7 @@ from config import COLORS
 class Level_01:
     def __init__(self):
         self.name = "Desert"
-        self.speed = 23
+        self.speed = 20
         self.cell_size = 30
         self.snake_start = [(10, 10), (9, 10), (8, 10)]
         

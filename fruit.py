@@ -2,7 +2,7 @@ import pygame
 
 
 class BaseFruit:
-    def __init__(self, color, velocity):
+    def __init__(self, color):
         pass
 
 
