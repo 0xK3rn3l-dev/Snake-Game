@@ -163,7 +163,7 @@ class GameScreen(BaseScreen):
                 if self.snake.check_food_collision(food):
                     self.foods.remove(food)
                     self.snake.grow()
-                    self.score += 10
+                    self.score += 20
                     self._spawn_food()
                     
                     if self.score >= 100:

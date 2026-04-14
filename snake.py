@@ -1,5 +1,6 @@
 import pygame
 from pygame.math import Vector2
+from config import COLORS, get_color
 
 class BaseSnake:
     def __init__(self, color, start_positions, cell_size=20):
@@ -60,12 +61,10 @@ class BaseSnake:
         for i, segment in enumerate(self.body):
             x = int(segment.x * self.cell_size)
             y = int(segment.y * self.cell_size)
-            
+             
             # Голова рисуется другим цветом
-            if i == 0:
-                color = (50, 255, 50)  # Ярко-зеленый для головы
-            else:
-                color = self.color
+
+            color = self.color
                 
             rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
             pygame.draw.rect(screen, color, rect)
@@ -73,5 +72,5 @@ class BaseSnake:
 
 
 class StandardSnake(BaseSnake):
-    def __init__(self, start_positions, cell_size=20):
-        super().__init__((0, 255, 0), start_positions, cell_size)
+    def __init__(self, color, start_positions, cell_size=20):
+        super().__init__(color, start_positions, cell_size)
