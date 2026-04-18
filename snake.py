@@ -72,5 +72,5 @@ class BaseSnake:
 
 
 class StandardSnake(BaseSnake):
-    def __init__(self, color, start_positions, cell_size=20):
+    def __init__(self, start_positions, cell_size=20, color=COLORS['YELLOW']):
         super().__init__(color, start_positions, cell_size)
