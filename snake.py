@@ -1,6 +1,6 @@
 import pygame
 from pygame.math import Vector2
-from config import COLORS, get_color
+from config import get_color
 
 class BaseSnake:
     def __init__(self, color, start_positions, cell_size=20):
@@ -72,5 +72,9 @@ class BaseSnake:
 
 
 class StandardSnake(BaseSnake):
-    def __init__(self, start_positions, cell_size=20, color=COLORS['YELLOW']):
+    def __init__(self, start_positions, cell_size=20, color=get_color('RED')):
+        super().__init__(color, start_positions, cell_size)
+
+class GoldenSnake(BaseSnake):
+    def __init__(self, start_positions, cell_size=20, color=get_color('YELLOW')):
         super().__init__(color, start_positions, cell_size)
