@@ -3,13 +3,14 @@ from pygame.math import Vector2
 from config import get_color
 
 class BaseSnake:
-    def __init__(self, color, start_positions, cell_size=20):
+    def __init__(self, color, start_positions, cell_size=20, velocity=15):
         self.body = [Vector2(pos[0], pos[1]) for pos in start_positions]
         self.color = color
         self.direction = Vector2(1, 0)
         self.new_direction = Vector2(1, 0)
         self.cell_size = cell_size
         self.grow_flag = False
+        self.velocity = velocity
 
     def move(self):
         self.direction = self.new_direction
@@ -55,7 +56,7 @@ class BaseSnake:
     def check_food_collision(self, food_pos):
         return self.body[0] == Vector2(food_pos[0], food_pos[1])
 
-
+    # это длжно быть не тут
     def draw(self, screen):
         """Отрисовка змейки"""
         for i, segment in enumerate(self.body):
