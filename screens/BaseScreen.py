@@ -40,10 +40,17 @@ class BaseScreen:
     def handle_events(self, events):
         pass
 
-    def update(self):
+    def update(self, dt):
         pass
 
     def draw(self):
+        pass
+
+
+    def on_enter(self):
+        pass
+
+    def on_exit(self):
         pass
 
 

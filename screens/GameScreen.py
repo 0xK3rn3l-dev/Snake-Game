@@ -1,6 +1,6 @@
 from screens.BaseScreen import BaseScreen
 from levels.levelManager import LevelManager
-from snake import StandardSnake
+from snake import StandardSnake, GoldenSnake
 import random
 import pygame
 
@@ -31,6 +31,7 @@ class GameScreen(BaseScreen):
 
         self._load_level_objects()
     
+
     def _load_level_objects(self):
         """Загружает объекты из текущего уровня"""
         if self.current_level:
@@ -41,7 +42,7 @@ class GameScreen(BaseScreen):
                 grid_y = pos[1] // self.cell_size
                 snake_positions.append((grid_x, grid_y))
             
-            self.snake = StandardSnake(snake_positions, self.cell_size)
+            self.snake = GoldenSnake(snake_positions, self.cell_size)
             
             self.walls = []
             for wall in self.current_level.walls:
@@ -154,9 +155,9 @@ class GameScreen(BaseScreen):
         
         # Контроль скорости движения
         self.move_timer += 1
+
         if self.move_timer >= (60 // self.speed):
             self.move_timer = 0
-            
             self.snake.move()
             
             for food in self.foods[:]: 

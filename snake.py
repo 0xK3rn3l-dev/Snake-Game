@@ -10,7 +10,7 @@ class BaseSnake:
         self.new_direction = Vector2(1, 0)
         self.cell_size = cell_size
         self.grow_flag = False
-        self.velocity = velocity
+        self.velocity = velocity  # UNUSED (for future)
 
     def move(self):
         self.direction = self.new_direction
@@ -62,20 +62,39 @@ class BaseSnake:
         for i, segment in enumerate(self.body):
             x = int(segment.x * self.cell_size)
             y = int(segment.y * self.cell_size)
-             
-            # Голова рисуется другим цветом
-
-            color = self.color
-                
             rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
-            pygame.draw.rect(screen, color, rect)
+            pygame.draw.rect(screen, self.color, rect)
             pygame.draw.rect(screen, (0, 100, 0), rect, 2)  # Контур
 
 
+
+
+
+
+# ----------------------
+#        Snakes
+# ----------------------
+
 class StandardSnake(BaseSnake):
-    def __init__(self, start_positions, cell_size=20, color=get_color('RED')):
-        super().__init__(color, start_positions, cell_size)
+    def __init__(self, start_positions, cell_size):
+        color=get_color('CYAN')
+        velocity=15
+        super().__init__(
+            color=color,
+            velocity=velocity,
+            start_positions=start_positions,
+            cell_size=cell_size,
+        )
+
+
 
 class GoldenSnake(BaseSnake):
-    def __init__(self, start_positions, cell_size=20, color=get_color('YELLOW')):
-        super().__init__(color, start_positions, cell_size)
+    def __init__(self, start_positions, cell_size):
+        color=get_color('YELLOW')
+        velocity=25
+        super().__init__(
+            color=color,
+            velocity=velocity,
+            start_positions=start_positions,
+            cell_size=cell_size,
+        )
