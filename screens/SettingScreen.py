@@ -19,13 +19,12 @@ class SettingScreen(BaseScreen):
         self.tab_rects = []
         self.active_tab = "sound"
 
+        
         # змейки
+        self.snake_scroll_x = 0
+        self.snake_scroll_speed = 20
+
         self.snakes = [
-            {"name": "Standard", "color": (0, 255, 255), "unlocked": True},
-            {"name": "Golden",   "color": (255, 215, 0), "unlocked": True},
-            {"name": "Red",      "color": (255, 0, 0), "unlocked": False},
-            {"name": "Purple",   "color": (160, 32, 240), "unlocked": False},
-            {"name": "Neon",     "color": (57, 255, 20), "unlocked": False},
             {"name": "Standard", "color": (0, 255, 255), "unlocked": True},
             {"name": "Golden",   "color": (255, 215, 0), "unlocked": True},
             {"name": "Red",      "color": (255, 0, 0), "unlocked": False},
@@ -35,11 +34,8 @@ class SettingScreen(BaseScreen):
 
         self.selected_snake = 0
 
-        # 👉 СКРОЛЛ
-        self.snake_scroll_x = 0
-        self.snake_scroll_speed = 20
-
         self._create_tab_rects()
+
 
     def _create_tab_rects(self):
         self.tab_rects = []
@@ -49,9 +45,17 @@ class SettingScreen(BaseScreen):
             rect = text_surface.get_rect(center=(200, item["y"]))
             self.tab_rects.append(rect)
 
-    def on_enter(self):
+
+
+
+    # =======================
+    #       Functions
+    #========================
+
+    def on_enter(self, data=None):
         self.exiting = False
         self.fade_alpha = 0
+
 
     def handle_events(self, events):
         mouse_pos = pygame.mouse.get_pos()
@@ -88,12 +92,17 @@ class SettingScreen(BaseScreen):
 
             if self.fade_alpha >= 255:
                 self.next_screen = "menu"
+
+                self.next_screen_data = {
+                "selected_snake": self.selected_snake
+                }
+
                 self.running = False
 
-        # 👉 ограничение скролла
+
+        # ограничение скролла
         max_scroll = 0
         min_scroll = min(0, 450 - (len(self.snakes) * 120))
-
         self.snake_scroll_x = max(min_scroll, min(max_scroll, self.snake_scroll_x))
 
     def draw(self):
@@ -131,13 +140,20 @@ class SettingScreen(BaseScreen):
             fade.set_alpha(self.fade_alpha)
             self.screen.blit(fade, (0, 0))
 
+
+
+
+    # =======================
+    #      draw_content
+    #========================
+
     def _draw_sound(self):
         text = self.font_medium.render("Sound settings (placeholder)", True, self.WHITE)
-        self.screen.blit(text, (450, 250))
+        self.screen.blit(text, (450, 200))
 
     def _draw_game(self):
         text = self.font_medium.render("Game settings (placeholder)", True, self.WHITE)
-        self.screen.blit(text, (450, 250))
+        self.screen.blit(text, (450, 200))
 
     def _draw_snake(self):
         # зона, где можно рисовать змей (ограничиваем область)

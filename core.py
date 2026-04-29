@@ -15,8 +15,9 @@ def RunningProgram(MainScreen):
     current_screen_key = "menu"
     current = screens[current_screen_key]
 
-    current.on_enter()
-
+    next_data = getattr(current, "next_screen_data", None)
+    current.on_enter(next_data)
+    
     running = True
 
     while running:
@@ -38,24 +39,24 @@ def RunningProgram(MainScreen):
 
         # SCREEN SWITCH
         if current.next_screen:
-
+        
             if current.next_screen == "quit":
                 running = False
                 continue
-
+            
             if current.next_screen in screens:
-
-                # exit old
+            
                 current.on_exit()
 
-                # switch
                 current_screen_key = current.next_screen
                 current = screens[current_screen_key]
 
                 current.next_screen = None
                 current.running = True
 
-                # enter new
-                current.on_enter()
+                # 👇 ВАЖНО: передаём данные
+                next_data = getattr(current, "next_screen_data", None)
+
+                current.on_enter(next_data)
 
     pygame.quit()

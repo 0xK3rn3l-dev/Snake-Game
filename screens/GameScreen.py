@@ -1,6 +1,6 @@
 from screens.BaseScreen import BaseScreen
 from levels.levelManager import LevelManager
-from snake import StandardSnake, GoldenSnake
+from SnakeManager import create_snake
 import random
 import pygame
 
@@ -8,9 +8,7 @@ import pygame
 class GameScreen(BaseScreen):
     def __init__(self,screen):
         super().__init__(screen)
-
         self.level_manager = LevelManager()
-        self.current_level = self.level_manager.load_level(0)
 
         # Игровые параметры
         self.cell_size = 30
@@ -21,6 +19,7 @@ class GameScreen(BaseScreen):
         self.snake = None
         self.foods = []
         self.walls = []
+        self.selected_snake = 0
 
         # Состояние игры
         self.score = 0
@@ -28,9 +27,27 @@ class GameScreen(BaseScreen):
         self.game_complete = False
         self.level_complete = False
         self.move_timer = 0
+    
+
+    def on_enter(self, data=None):
+        if data and "selected_snake" in data:
+            self.selected_snake = data["selected_snake"]
+        else:
+            self.selected_snake = 0
+        print("SELECTED SNAKE =", self.selected_snake)
+
+        # 👇 каждый вход = новый уровень
+        self.level_manager = LevelManager()
+        self.current_level = self.level_manager.load_level(0)
+
+        self.score = 0
+        self.game_over = False
+        self.game_complete = False
+        self.level_complete = False
+        self.move_timer = 0
 
         self._load_level_objects()
-    
+
 
     def _load_level_objects(self):
         """Загружает объекты из текущего уровня"""
@@ -42,7 +59,7 @@ class GameScreen(BaseScreen):
                 grid_y = pos[1] // self.cell_size
                 snake_positions.append((grid_x, grid_y))
             
-            self.snake = GoldenSnake(snake_positions, self.cell_size)
+            self.snake = create_snake(self.selected_snake, snake_positions, self.cell_size)
             
             self.walls = []
             for wall in self.current_level.walls:
