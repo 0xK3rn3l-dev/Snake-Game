@@ -98,3 +98,14 @@ class GoldenSnake(BaseSnake):
             start_positions=start_positions,
             cell_size=cell_size,
         )
+
+class RedSnake(BaseSnake):
+    def __init__(self, start_positions, cell_size):
+        color=get_color('RED')
+        velocity=25
+        super().__init__(
+            color=color,
+            velocity=velocity,
+            start_positions=start_positions,
+            cell_size=cell_size,
+        )
