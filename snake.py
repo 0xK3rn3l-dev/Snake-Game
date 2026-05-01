@@ -10,7 +10,8 @@ class BaseSnake:
         self.new_direction = Vector2(1, 0)
         self.cell_size = cell_size
         self.grow_flag = False
-        self.velocity = velocity  # UNUSED (for future)
+        self.velocity = velocity  # UNUSED (for future)...
+        
 
     def move(self):
         self.direction = self.new_direction
