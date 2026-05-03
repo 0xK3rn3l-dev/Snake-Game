@@ -1,12 +1,7 @@
-import pygame
+class Fruit:
+    def __init__(self, img):
+        self.img = img
 
 
-class BaseFruit:
-    def __init__(self, color):
-        pass
-
-
-
-class Apple(BaseFruit):
-    def __init__(self):
-        super().__init__()
+apple = Fruit('img/fruits/apple.png')
+banana = Fruit('img/fruits/banana.png')
