@@ -1,4 +1,5 @@
 from snake import StandardSnake, GoldenSnake, RedSnake
+# here will be more snakes
 
 SNAKES = [
     StandardSnake,
